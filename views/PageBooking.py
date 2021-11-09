@@ -21,7 +21,7 @@ class PageBooking(AbstractPage):
         with time_col2:
             st.time_input("Start time", key="start_time")
         with time_col3:
-            st.number_input('Booking period', key="period", min_value=0)
+            st.number_input('Booking period', key="period", min_value=1)
 
         st.selectbox("Table", options=[f'{table.name} - {table.seats} seats' for table in
                                        filter(lambda table: table.free_seats == table.seats,
