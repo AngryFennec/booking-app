@@ -17,12 +17,6 @@ if "tables" not in st.session_state:
     st.session_state.tables.append(table2)
     st.session_state.tables.append(table3)
 
-    # st.session_state.tables = [
-    #     {"name": "Table 1", "checked": False, "free": True, "seats": 4, 'free_seats': 4},
-    #     {"name": "Table 2", "checked": False, "free": False, "seats": 5, 'free_seats': 3},
-    #     {"name": "Table 3", "checked": False, "free": True, "seats": 6, 'free_seats': 6},
-    # ]
-
 if "booking" not in st.session_state:
     st.session_state.booking = []
 

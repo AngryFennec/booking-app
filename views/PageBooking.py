@@ -1,32 +1,26 @@
 import streamlit as st
 
-from utils import get_table_name_from_select, get_table_id_from_select
+from controllers.booking_controller import submit_form
 from views.AbstractPage import AbstractPage
 
 
 class PageBooking(AbstractPage):
+    """Class for booking page"""
 
     def show_page(self):
-        def submit_form():
-            if st.session_state.submit_form:
-                st.session_state.booking.append({
-                    "name": st.session_state.guest_name,
-                    "phone": st.session_state.guest_phone,
-                    "start_time": st.session_state.start_time,
-                    "period": st.session_state.period,
-                    "table:": get_table_name_from_select(st.session_state.selected_table)
-                })
-                table_index = get_table_id_from_select(st.session_state.selected_table, st.session_state.tables)
-                st.session_state.tables[table_index].free_seats = 0
+        """Implemented method for showing booking page"""
 
         st.subheader("Booking")
+
         st.text_input("Guest name", key="guest_name")
         st.text_input("Guest phone", key="guest_phone")
 
-        time_col1, time_col2 = st.columns([1, 1])
+        time_col1, time_col2, time_col3 = st.columns([1, 1, 1])
         with time_col1:
-            st.selectbox("Start time", options=['12:00', '13:00', '14:00', '15:00'], key="start_time")
+            st.date_input("Visit date", key="visit_date")
         with time_col2:
+            st.time_input("Start time", key="start_time")
+        with time_col3:
             st.number_input('Booking period', key="period", min_value=0)
 
         st.selectbox("Table", options=[f'{table.name} - {table.seats} seats' for table in
@@ -40,3 +34,32 @@ class PageBooking(AbstractPage):
         for table in st.session_state.tables:
             if table.free_seats == table.seats:
                 st.write(f'{table.name} - Free')
+
+        st.write("")
+        st.subheader("List of booking")
+        col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
+        with col1:
+            st.write("Guest name")
+        with col2:
+            st.write("Guest phone")
+        with col3:
+            st.write("Date")
+        with col4:
+            st.write("Time")
+        with col5:
+            st.write("Period")
+        with col6:
+            st.write("Table")
+        for booking_item in st.session_state.booking:
+            with col1:
+                st.write(booking_item.name)
+            with col2:
+                st.write(booking_item.phone)
+            with col3:
+                st.write(booking_item.visit_date)
+            with col4:
+                st.write(booking_item.start_time)
+            with col5:
+                st.write(str(booking_item.period))
+            with col6:
+                st.write(booking_item.table)
