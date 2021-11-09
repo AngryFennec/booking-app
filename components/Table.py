@@ -1,3 +1,6 @@
+from utils import get_id
+
+
 class Table:
     """Class for table"""
     def __init__(self, name, seats, free_seats, checked=False):
@@ -5,6 +8,11 @@ class Table:
         self.__seats = seats
         self.__free_seats = free_seats
         self.__checked = checked
+        self.__id = get_id()
+
+    @property
+    def id(self):
+        return self.__id
 
     @property
     def name(self):

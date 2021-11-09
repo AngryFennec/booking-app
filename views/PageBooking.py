@@ -10,8 +10,8 @@ class PageBooking(AbstractPage):
     def show_page(self):
         """Implemented method for showing booking page"""
 
+        # Show fields for creating new booking item
         st.subheader("Booking")
-
         st.text_input("Guest name", key="guest_name")
         st.text_input("Guest phone", key="guest_phone")
 
@@ -28,13 +28,14 @@ class PageBooking(AbstractPage):
                                               st.session_state.tables)], key="selected_table")
         st.button('Submit', on_click=submit_form, key="submit_form")
 
-        # Show all free tables.
+        # Show all free tables
         st.write("")
         st.subheader("List of free tables")
         for table in st.session_state.tables:
             if table.free_seats == table.seats:
                 st.write(f'{table.name} - Free')
 
+        # Show all booking items
         st.write("")
         st.subheader("List of booking")
         col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
@@ -60,6 +61,6 @@ class PageBooking(AbstractPage):
             with col4:
                 st.write(booking_item.start_time)
             with col5:
-                st.write(str(booking_item.period))
+                st.write(booking_item.period)
             with col6:
                 st.write(booking_item.table)
